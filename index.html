@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepClean Pro - Audio Enhancer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #ffffff;
+            line-height: 1.6;
+            text-align: center;
+            
+            /* THE NEW DJ BACKGROUND IMAGE */
+            background-image: linear-gradient(rgba(5, 5, 10, 0.75), rgba(5, 5, 10, 0.75)), url('https://static.iimg.live/uploads/vibrant-creation-9189.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-color: #0a0a0f;
+        }
+
+        nav {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 15, 0.6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        nav h1 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #00e5ff;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #00e5ff;
+            color: #00e5ff;
+        }
+
+        .hero {
+            padding: 100px 20px 60px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background-color: #00e5ff;
+            color: #000000;
+            text-decoration: none;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.5);
+        }
+
+        .download-btn:hover {
+            background-color: #00ffff;
+            transform: translateY(-2px);
+            box-shadow: 0 0 35px rgba(0, 229, 255, 0.8);
+        }
+
+        .download-subtext {
+            display: block;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #888888;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            flex: 1;
+            min-width: 250px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+        }
+
+        .feature h3 {
+            color: #00e5ff;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .feature p {
+            color: #aaaaaa;
+            font-size: 0.95rem;
+        }
+
+        .screenshots {
+            padding: 40px 20px 80px;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .screenshots h2 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: #ffffff;
+        }
+
+        .screenshots img {
+            max-width: 100%;
+            width: 800px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            margin-bottom: 40px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .screenshots img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 50px rgba(0, 229, 255, 0.2);
+        }
+
+        footer {
+            padding: 40px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #666666;
+            font-size: 0.9rem;
+            background: rgba(10, 10, 15, 0.8);
+        }
+
+        footer a {
+            color: #00e5ff;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal (Lightbox) */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 9999; 
+            padding-top: 100px; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.95);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 1200px;
+            border-radius: 8px;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #00e5ff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h1>SEW TECHNOLOGIES</h1>
+        <div class="nav-links">
+            <a href="THIRD_PARTY_LICENSES.txt" target="_blank">View License</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h2>DeepClean Pro</h2>
+        <p>Unlock the PRR PRRRR bass in your headphones. Advanced audio enhancement for Windows.</p>
+        
+        <a href="https://github.com/SpaceExplorerWorldTechnologies/Deepclean-Pro-Equalizer/releases/download/untagged-452a8ed2a5378062088f/DeepCleanPro_Setup.exe" class="download-btn">
+            Download for Windows
+        </a>
+        <span class="download-subtext">Free • Windows 10/11 (64-bit) • Requires VB-Cable or any virtual audio driver</span>
+    </section>
+
+    <section class="features">
+        <div class="feature">
+            <h3>Raw Bass Boost</h3>
+            <p>Clean stereo sub-bass boost below 150Hz. No phase widening, just pure thump.</p>
+        </div>
+        <div class="feature">
+            <h3>Treble Enhancer</h3>
+            <p>Target hi-hats and cymbals above 6kHz. Make the "ts ts" cut through the mix.</p>
+        </div>
+        <div class="feature">
+            <h3>10-Band EQ</h3>
+            <p>Full parametric control with a custom visualizer that reacts to your audio.</p>
+        </div>
+    </section>
+
+    <section class="screenshots">
+        <h2>See It In Action</h2>
+        <img src="https://static.iimg.live/uploads/incredible-creation-3390.png" alt="DeepClean Pro Bass Meter Shaking">
+        <img src="https://static.iimg.live/uploads/radiant-collection-3605.png" alt="DeepClean Pro 10-Band Equalizer">
+    </section>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01">
+    </div>
+
+    <footer>
+        <p>&copy; 2026 SEW Technologies. All rights reserved.</p>
+        <p>
+            <a href="https://github.com/SpaceExplorerWorldTechnologies/Deepclean-Pro-Equalizer">View Source on GitHub</a> | 
+            <a href="THIRD_PARTY_LICENSES.txt" target="_blank">Third-Party Licenses</a>
+        </p>
+    </footer>
+
+    <script>
+        var modal = document.getElementById("myModal");
+        var modalImg = document.getElementById("img01");
+        var span = document.getElementsByClassName("close")[0];
+        var imgs = document.querySelectorAll(".screenshots img");
+
+        imgs.forEach(function(img) {
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = this.src;
+            }
+        });
+
+        span.onclick = function() { 
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
